@@ -1,12 +1,14 @@
-CC = cc
-CFLAGS = -Iinclude
-SRCS = src/main.c
-OBJS = $(SRCS:.c=.o)
+CC			=	cc
+CFLAGS		=	-Iinclude
+SRCS		=	src/main.c \
+				src/gauge.c
+OBJS		=	$(SRCS:.c=.o)
+TARGET		=	alphabet-quiz
 
-alphabet-quiz: $(OBJS)
+$(TARGET): $(OBJS)
 	$(CC) -o $@ $^
 
 clean:
-	rm -f alphabet-quiz $(OBJS)
+	rm -f $(TARGET) $(OBJS)
 
 .PHONY: clean

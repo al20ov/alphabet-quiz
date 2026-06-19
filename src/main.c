@@ -7,6 +7,7 @@
 #include <time.h>
 
 #include "common.h"
+#include "gauge.h"
 
 void init_rand(void) {
     struct timeval tv;
@@ -85,6 +86,7 @@ void game_loop(void) {
 
             validity = get_result(pair, answer);
         }
+        print_gauge(pair);
     }
 }
 
