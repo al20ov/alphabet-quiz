@@ -6,26 +6,17 @@
 #include <sys/time.h>
 #include <time.h>
 
-#define MIN 'A'
-#define MAX 'Z'
+#include "common.h"
 
-#define CORRECT_STRING "Correct!"
-#define INCORRECT_STRING "Wrong..."
-
-struct letter_pair {
-    char first;
-    char second;
-};
-
-void init_rand() {
+void init_rand(void) {
     struct timeval tv;
 
     gettimeofday(&tv, NULL);
     srand(tv.tv_usec); // Init with microseconds, not seconds
 }
 
-char get_random_letter() {
-    char result = (rand() % (MAX - MIN + 1)) + MIN;
+char get_random_letter(void) {
+    char result = (rand() % (MAX_CHAR - MIN_CHAR + 1)) + MIN_CHAR;
 
     return result;
 }
@@ -34,22 +25,20 @@ struct letter_pair get_letter_pair() {
     struct letter_pair result = {get_random_letter(), get_random_letter()};
 
     if (result.first == result.second) {
-        result.second = ((result.second - MIN + 1) % 26) + MIN;
+        result.second = ((result.second - MIN_CHAR + 1) % 26) + MIN_CHAR;
     }
 
     return result;
 }
 
+void print_usage(void) { puts(USAGE_STRING); }
+
+void print_invalid_answer(void) { puts(INVALID_ANSWER_STRING); }
+
 void print_question(struct letter_pair pair) {
     printf("Which letter comes first in the alphabet: %c or %c?\n", pair.first,
            pair.second);
 }
-
-void print_invalid_answer(void) {
-    printf("Please answer with either of the letters above.\n");
-}
-
-enum ANSWER_VALIDITY { ANSWER_INVALID, ANSWER_INCORRECT, ANSWER_CORRECT };
 
 enum ANSWER_VALIDITY get_result(struct letter_pair pair, char *answer) {
     if (strlen(answer) != 2) {
@@ -75,7 +64,7 @@ enum ANSWER_VALIDITY get_result(struct letter_pair pair, char *answer) {
     return ANSWER_INCORRECT;
 }
 
-void game_loop() {
+void game_loop(void) {
     struct letter_pair pair = {0};
     char *answer = NULL;
     size_t answer_len = 0;
@@ -101,6 +90,7 @@ void game_loop() {
 
 int main(void) {
     init_rand();
+    print_usage();
     game_loop();
 
     return 0;

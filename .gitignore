@@ -1,3 +1,4 @@
 *.o
 a.out
 alphabet-quiz
+compile_commands.json
