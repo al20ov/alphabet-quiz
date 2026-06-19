@@ -25,12 +25,7 @@ void print_gauge(struct letter_pair pair) {
     }
     putchar('\n');
 
-    putchar('[');
-    for (uint8_t i = 0; i < 26; i += 1) {
-        putchar('-');
-    }
-    putchar(']');
-    putchar('\n');
+    puts(GAUGE_STRING);
 
     fflush(stdout);
 }

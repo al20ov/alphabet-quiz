@@ -13,6 +13,8 @@
 #define INVALID_ANSWER_STRING                                                  \
     "Please answer with either of the letters above.\n"
 
+#define GAUGE_STRING "[--------------------------]\n"
+
 struct letter_pair {
     char first;
     char second;
