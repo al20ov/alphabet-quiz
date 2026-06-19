@@ -9,8 +9,8 @@
 #define MIN 'A'
 #define MAX 'Z'
 
-#define CORRECT_STRING "Correct!\n"
-#define INCORRECT_STRING "Wrong...\n"
+#define CORRECT_STRING "Correct!"
+#define INCORRECT_STRING "Wrong..."
 
 struct letter_pair {
     char first;
@@ -53,7 +53,7 @@ enum ANSWER_VALIDITY get_result(struct letter_pair pair, char *answer) {
         return ANSWER_INVALID;
     }
 
-    char user_answer = (char)toupper(answer[0]);
+    int user_answer = toupper((unsigned char)answer[0]);
 
     if (user_answer != pair.first && user_answer != pair.second) {
         print_invalid_answer();
@@ -72,7 +72,7 @@ enum ANSWER_VALIDITY get_result(struct letter_pair pair, char *answer) {
 }
 
 void game_loop() {
-    struct letter_pair pair = {};
+    struct letter_pair pair = {0};
     char *answer = NULL;
     size_t answer_len = 0;
     ssize_t answer_read = 0;
