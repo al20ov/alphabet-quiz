@@ -33,6 +33,10 @@ char get_random_letter() {
 struct letter_pair get_letter_pair() {
     struct letter_pair result = {get_random_letter(), get_random_letter()};
 
+    if (result.first == result.second) {
+        result.second = ((result.second - MIN + 1) % 26) + MIN;
+    }
+
     return result;
 }
 
