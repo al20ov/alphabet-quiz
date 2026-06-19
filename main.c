@@ -45,41 +45,24 @@ void print_invalid_answer(void) {
     printf("Please answer with either of the letters above.\n");
 }
 
-enum MATCH_LEVEL { NONE, FIRST, SECOND };
-
-enum MATCH_LEVEL get_match(struct letter_pair pair, char sanitized_answer) {
-    if (sanitized_answer == pair.first) {
-        return FIRST;
-    } else if (sanitized_answer == pair.second) {
-        return SECOND;
-    } else {
-        return NONE;
-    }
-}
-
 enum ANSWER_VALIDITY { ANSWER_INVALID, ANSWER_INCORRECT, ANSWER_CORRECT };
 
 enum ANSWER_VALIDITY get_result(struct letter_pair pair, char *answer) {
-    size_t real_answer_len = strlen(answer);
-    enum MATCH_LEVEL match = NONE;
-
-    if (real_answer_len != 2) {
-        print_invalid_answer();
-        return ANSWER_INVALID;
-    }
-    match = get_match(pair, (char)toupper(answer[0]));
-
-    if (match == NONE) {
+    if (strlen(answer) != 2) {
         print_invalid_answer();
         return ANSWER_INVALID;
     }
 
-    if (match == FIRST && pair.first <= pair.second) {
-        puts(CORRECT_STRING);
-        return ANSWER_CORRECT;
+    char user_answer = (char)toupper(answer[0]);
+
+    if (user_answer != pair.first && user_answer != pair.second) {
+        print_invalid_answer();
+        return ANSWER_INVALID;
     }
 
-    if (match == SECOND && pair.second <= pair.first) {
+    char correct = pair.first <= pair.second ? pair.first : pair.second;
+
+    if (user_answer == correct) {
         puts(CORRECT_STRING);
         return ANSWER_CORRECT;
     }
