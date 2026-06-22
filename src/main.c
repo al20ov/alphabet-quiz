@@ -37,8 +37,9 @@ void print_usage(void) { puts(USAGE_STRING); }
 void print_invalid_answer(void) { puts(INVALID_ANSWER_STRING); }
 
 void print_question(struct letter_pair pair) {
-    printf("Which letter comes first in the alphabet: %c or %c?\n", pair.first,
-           pair.second);
+    printf("Which letter comes first in the alphabet: \033[1;33m%c\033[0m or "
+           "\033[1;33m%c\033[0m?\n",
+           pair.first, pair.second);
 }
 
 enum ANSWER_VALIDITY get_result(struct letter_pair pair, char *answer) {
